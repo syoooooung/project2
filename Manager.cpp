@@ -38,7 +38,7 @@ bool Manager::PRINT_FPTREE() {
 	
 }
 
-bool Manager::PRINT_MIN(char* item, int min_frequency) {
+bool Manager::PRINT_BPTREE(char* item, int min_frequency) {
 	
 }
 
