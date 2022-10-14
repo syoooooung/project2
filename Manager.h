@@ -33,7 +33,7 @@ public:
 
 	bool PRINT_RANGE(char* item, int start, int end);
 	bool PRINT_CONFIDENCE(char* item, double rate);
-	bool PRINT_MIN(char* item, int min_frequency);
+	bool PRINT_BPTREE(char* item, int min_frequency);
 
 
 	void printErrorCode(int n);
