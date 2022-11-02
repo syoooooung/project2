@@ -1,5 +1,5 @@
 #include "Manager.h"
-
+//암거나 수정
 void Manager::run(const char* command)
 {
 	fin.open(command);
