@@ -49,7 +49,7 @@ $ pwd
 /home/user
 $ cd Download
 $ pwd
-/home/user/Downloads
+/home/user/Downloadsㅇㅇ
 ```
 
 ### requirement
