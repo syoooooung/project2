@@ -1,7 +1,7 @@
 #pragma once
 #include "FPGrowth.h"
 #include "BpTree.h"
-
+using namespace std;
 class Manager
 {
 private:
@@ -12,14 +12,18 @@ public:
 	Manager(int threshold, int bpOrder)	//constructor
 	{
 		/* You must fill here */
+		//log.txt 열기
+		flog.open("log.txt",ios::app);
+		fpgrowth = new FPGrowth(&flog,threshold);
 	}
 
 
 	~Manager()//destructor
 	{
 		/* You must fill here */
+		flog.close();
 	}
-
+	//stream 하나
 	ifstream fin;
 	ofstream flog;
 	

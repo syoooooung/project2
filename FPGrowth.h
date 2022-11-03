@@ -14,6 +14,7 @@ private:
 	map<set<string>, int> frequenctPatterns;
 	ofstream* fout;
 	ofstream flog;
+	list<pair<int, string>>::iterator iter;
 public:
 	FPGrowth(ofstream *fout, int threshold = 3) {
 		this->threshold = threshold;
@@ -26,7 +27,7 @@ public:
 	void createTable(char* item, int frequency) { table->insertTable(item, frequency); }
 	void createFPtree(FPNode* root, HeaderTable* table, list<string> item_array, int frequency);
 	void connectNode(HeaderTable* table, string item, FPNode* node);
-
+	void sort_descending_index(){table->descendingIndexTable();}
 	
 	void frequenctPatternSetting() {
 		table->ascendingIndexTable();
