@@ -51,7 +51,8 @@ bool Manager::LOAD()
 		cout<<"market.txt not open!!"<<endl;
 		return 0;
 	}
-
+	list<string> manager_item_list;
+	string endline ="end";
 	//	int item_frequency(string item) {return table->find_frequency(item);}
 	while(!market_fin.eof()){ //index table
 		market_fin.getline(mk,500);
@@ -62,28 +63,30 @@ bool Manager::LOAD()
 			//string str_market_item(market_infor);
 			//cout<<market_infor<<" / "<<fpgrowth->item_frequency(market_infor)<<endl;
 			fpgrowth->createTable(market_infor, fpgrowth->item_frequency(market_infor));
+			manager_item_list.push_back(market_infor);
 			market_infor = strtok(NULL,"\t");
 		}
+		manager_item_list.push_back(endline);
 	}
 	market_fin.close();
 	//fpgrowth->createTable(??,fpgrowth->item_frequenct())
 	fpgrowth->sort_descending_index(); //sort indext table for set map
 
 	int num_for_make_dataTable=0;
+	
 	while(1){
 		if(fpgrowth->get_index_item(num_for_make_dataTable) == "") break;
+		
 		fpgrowth->create_dataTable(fpgrowth->get_index_item(num_for_make_dataTable));
 		num_for_make_dataTable++;
 	} //data table
+
+	fpgrowth->createFPtree(fpgrowth->getTree(), fpgrowth->getHeaderTable(), manager_item_list, 1);
 	return true;
 }
 
-
-
-
 bool Manager::BTLOAD()
-{
-	
+{	
 	return true;
 }
 

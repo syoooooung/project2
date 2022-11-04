@@ -16,7 +16,7 @@ private:
 	ofstream flog;
 	list<pair<int, string>>::iterator iter;
 public:
-	FPGrowth(ofstream *fout, int threshold = 3) {
+	FPGrowth(ofstream *fout, int threshold) {
 		this->threshold = threshold;
 		flog.open("result.txt", ios::app);
 		flog.setf(ios::fixed);
