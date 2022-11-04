@@ -7,9 +7,9 @@ using namespace std;
 class FPNode
 {
 private:
-	int frequency;
-	FPNode* parent;
-	FPNode* next;
+	int frequency=0;
+	FPNode* parent=NULL;
+	FPNode* next=NULL;
 	map<string, FPNode*> children;
 public:
 	FPNode();

@@ -24,7 +24,8 @@ public:
 		this->fout = fout;
 	}
 	~FPGrowth();
-	void createTable(char* item, int frequency) { table->insertTable(item, frequency); }
+	void createTable(char* item, int frequency) {table->insertTable(item, frequency); }
+	void create_dataTable(string item){ table->make_dataTable(item);}
 	void createFPtree(FPNode* root, HeaderTable* table, list<string> item_array, int frequency);
 	void connectNode(HeaderTable* table, string item, FPNode* node);
 	void sort_descending_index(){table->descendingIndexTable();}
@@ -40,6 +41,7 @@ public:
 	int item_frequency(string item) {return table->find_frequency(item);}
 	FPNode* getTree() { return fpTree; }
 	HeaderTable* getHeaderTable() { return table; }
+	string get_index_item(int how_num){ return table->get_index_item_name(how_num);}
 
 	bool printList();
 	bool printTree();

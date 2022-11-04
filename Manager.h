@@ -1,7 +1,21 @@
 #pragma once
-#include "FPGrowth.h"
 #include "BpTree.h"
+#include<iostream>
+#include<fstream>
+#include "FPGrowth.h"
 using namespace std;
+enum Result{ //Enum fo errorcode and successcode
+    Fail = 0,
+    Success=1,
+    Load = 100,
+    Btload=200,
+    Printitemlist=300,
+    Printfptree=400,
+    Printbptree=500,
+    Printconfidence=600,
+    Printrange=700,
+    Save=800
+};
 class Manager
 {
 private:
