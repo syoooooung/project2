@@ -36,6 +36,12 @@ void Manager::run(const char* command)
 			}
 			
 		}
+		else if(strcmp(command,"PRINT_FPTREE")==0){
+			if(!PRINT_FPTREE()){
+				flog<<"=====PRINT_FPTREE====="<<endl;
+				printErrorCode(400);
+			}
+		}
 	
 	}
 	fin.close();
@@ -51,8 +57,10 @@ bool Manager::LOAD()
 		cout<<"market.txt not open!!"<<endl;
 		return 0;
 	}
-	list<string> manager_item_list;
+	
+	list<string> try_list;
 	string endline ="end";
+	string special_end = "real_end";
 	//	int item_frequency(string item) {return table->find_frequency(item);}
 	while(!market_fin.eof()){ //index table
 		market_fin.getline(mk,500);
@@ -63,17 +71,17 @@ bool Manager::LOAD()
 			//string str_market_item(market_infor);
 			//cout<<market_infor<<" / "<<fpgrowth->item_frequency(market_infor)<<endl;
 			fpgrowth->createTable(market_infor, fpgrowth->item_frequency(market_infor));
-			manager_item_list.push_back(market_infor);
+			try_list.push_back(market_infor);
 			market_infor = strtok(NULL,"\t");
 		}
-		manager_item_list.push_back(endline);
+		try_list.push_back(endline);
 	}
+	try_list.push_back(special_end);
 	market_fin.close();
 	//fpgrowth->createTable(??,fpgrowth->item_frequenct())
 	fpgrowth->sort_descending_index(); //sort indext table for set map
-
-	int num_for_make_dataTable=0;
 	
+	int num_for_make_dataTable=0;
 	while(1){
 		if(fpgrowth->get_index_item(num_for_make_dataTable) == "") break;
 		
@@ -81,7 +89,48 @@ bool Manager::LOAD()
 		num_for_make_dataTable++;
 	} //data table
 
+	list<string> manager_item_list;
+	list<pair<int, string> > temp_index = fpgrowth->getHeaderTable()->getindexTable();
+	list<string>::iterator iter_try = try_list.begin();
+	string check_empty = "";
+	int break_num = 0;
+	int iam_cont = 0;
+	while (*try_list.begin() != special_end) {
+		for (list<pair<int, string>>::iterator itertemp = temp_index.begin(); itertemp != temp_index.end(); itertemp++) {
+			if(iam_cont){iam_cont=0;}
+			else{itertemp=temp_index.begin();}//여기여기여깅,~~
+			//for(; iter_try != try_list.end() ; iter_try++){
+			while (*try_list.begin() != "end") {
+				if (itertemp->second == *iter_try) {
+					if (itertemp->first < fpgrowth->get_threshold()) { 
+						iter_try=try_list.erase(iter_try); break_num = 1; continue; } //얘 원래 브레이큰ㄷ ㅔ콘티뉴로 바꿈!!
+					manager_item_list.push_back(*iter_try);
+					iter_try=try_list.erase(iter_try);
+					iter_try = try_list.begin();
+					continue;
+				}
+				iter_try++;
+				if (*iter_try == "end") { iter_try = try_list.begin(); iam_cont = 1; break; }
+			}
+			if (iam_cont) { continue; }
+			iter_try=try_list.erase(iter_try);
+			iter_try = try_list.begin();
+			itertemp= temp_index.begin();
+			manager_item_list.push_back(endline);
+			//if(itertemp->first < fpgrowth->get_threshold()){ break;}
+			if (*try_list.begin() == special_end) { break; }
+		}
+		//if(break_num){break;}
+	}
+	//manager_item_list.push_back(market_infor);
+	for(list<string>::iterator iter_just=manager_item_list.begin(); iter_just != manager_item_list.end(); iter_just++){
+		cout<<*iter_just<<" ";
+		if(*iter_just=="end"){cout<<endl;	
+		}
+	}
+
 	fpgrowth->createFPtree(fpgrowth->getTree(), fpgrowth->getHeaderTable(), manager_item_list, 1);
+
 	return true;
 }
 
@@ -101,7 +150,11 @@ bool Manager::PRINT_ITEMLIST() {
 }
 
 bool Manager::PRINT_FPTREE() {
-	
+	flog<<"=========PRINT_FPTREE========"<<endl;
+	flog<<"{StandardItem,Frequency}, (Path_Item,Frequency)"<<endl;
+	fpgrowth->printTree();
+	flog<<"============================="<<endl;
+	return 1;
 }
 
 bool Manager::PRINT_BPTREE(char* item, int min_frequency) {

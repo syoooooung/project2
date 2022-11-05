@@ -42,6 +42,7 @@ public:
 	FPNode* getTree() { return fpTree; }
 	HeaderTable* getHeaderTable() { return table; }
 	string get_index_item(int how_num){ return table->get_index_item_name(how_num);}
+	int get_threshold(){return threshold;}
 
 	bool printList();
 	bool printTree();

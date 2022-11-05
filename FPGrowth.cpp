@@ -6,24 +6,24 @@ FPGrowth::~FPGrowth() {
 }
 
 void FPGrowth::createFPtree(FPNode* root, HeaderTable* table, list<string> item_array, int frequency) {
-	
+	/*여기서부터
 	list<string> smaller_treshold;
 	int set_continue = 0;
-	/*
-	iter=table->getindexTable().begin();
-	while(1){
-		if(iter->first < threshold){
+	// 난 여기딸랑
+	//iter=table->getindexTable().begin();
+	//while(1){
+		//if(iter->first < threshold){
 			smaller_treshold.push_back(iter->second);
 		}
 		if(iter == table->getindexTable().end()) break;
 		iter++;
-	}*/
+	//}여기 딸랑
 	list<pair<int, string>> temp_index = table->getindexTable();
 	for (iter = temp_index.begin(); iter != temp_index.end(); iter++) {
 		if (iter->first < threshold) {
 			smaller_treshold.push_back(iter->second);
 		}
-	}
+	}여기까지*/
 	FPNode*currnode = root;
 	list<string>::iterator iter2;
 	for(iter2=item_array.begin(); iter2!=item_array.end();iter2++){
@@ -31,7 +31,7 @@ void FPGrowth::createFPtree(FPNode* root, HeaderTable* table, list<string> item_
 				//넘어가기 ㅇ추가
 			currnode=root;
 			continue;
-		}
+		}/*
 		for(list<string>::iterator iter3=smaller_treshold.begin(); iter3 != smaller_treshold.end(); iter3++){
 			if(*iter2 == *iter3){
 				//넘어가기 추가
@@ -42,13 +42,16 @@ void FPGrowth::createFPtree(FPNode* root, HeaderTable* table, list<string> item_
 		if(set_continue){
 			set_continue=0;
 			continue;
-		}
+		}*/
 		FPNode* check_children = currnode->getChildrenNode(*iter2);
 		if(check_children == NULL){
 			FPNode* newnode = new FPNode;
 			//table->getdataTable()
 			newnode->setParent(currnode);
 			newnode->updateFrequency(1);
+			string temp_str = *iter2;
+			newnode->setItem(temp_str);
+			//newnode->setItem((char*)(*iter2).c_str());
 			currnode->pushchildren(*iter2, newnode);
 			connectNode(table,*iter2,newnode);
 		}
@@ -104,6 +107,30 @@ bool FPGrowth::printList() {
 	return true;
 }
 bool FPGrowth::printTree() {
+	table->ascendingIndexTable();
+	list<pair<int, string>> temp_index = table->getindexTable();
+	
+	for (iter = temp_index.begin(); iter != temp_index.end(); iter++) {
+		if (iter->first < threshold) {
+			continue;
+		}
+		map<string,FPNode*> Print_dataTable =table->getdataTable();
+		map<string,FPNode*>::iterator iter4 =Print_dataTable.find(iter->second);
+		*fout<<"{"<<iter4->first<<", "<<table->find_frequency(iter4->first)<<"}"<<endl;
+		FPNode* currnode=iter4->second;
+		FPNode* savenode=currnode;
+		while(1){
+			currnode=savenode->getNext();
+			savenode=savenode->getNext();
+			if(currnode==NULL){break;}
+			while(currnode->getParent() != NULL){
+				string for_item_temp=currnode->getitem();
+				*fout<<"("<<for_item_temp<<", "<<currnode->getFrequency()<<") ";
+				currnode=currnode->getParent();
+			}
+			*fout<<endl;
+		}
+	}
 	return true;
 }
 void FPGrowth::saveFrequentPatterns(){
