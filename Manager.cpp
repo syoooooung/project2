@@ -17,18 +17,18 @@ void Manager::run(const char* command)
 		fin.getline(cmd,550);
 		char* command = strtok(cmd, " ");
 		if (command == NULL) { cout<< "No command "; return;}
-		if(strcmp(command, "LOAD")==0){
-			if(!LOAD()){
+		if(strcmp(command, "LOAD")==0){ //if command==load
+			if(!LOAD()){  //do load
 				//printerror(load);
 				flog<<"=========LOAD========"<<endl;
-				printErrorCode(100);
+				printErrorCode(100); //error code
 			}
 			else{
 				flog<<"=========LOAD========"<<endl;
 				printSuccessCode();
 			}
 		}
-		else if (strcmp(command, "PRINT_ITEMLIST")==0){
+		else if (strcmp(command, "PRINT_ITEMLIST")==0){ //if command ==print itemlist
 			if(!PRINT_ITEMLIST()){
 				//printerror
 				flog<<"======PRINT_ITEMLIST======"<<endl;
@@ -36,18 +36,18 @@ void Manager::run(const char* command)
 			}
 			
 		}
-		else if(strcmp(command,"PRINT_FPTREE")==0){
+		else if(strcmp(command,"PRINT_FPTREE")==0){ //command==print fptree
 			if(!PRINT_FPTREE()){
 				flog<<"=====PRINT_FPTREE====="<<endl;
 				printErrorCode(400);
 			}
 		}
-		else if(strcmp(command,"SAVE")==0){
+		else if(strcmp(command,"SAVE")==0){ //command= save
 			if(!SAVE()){
 				
 			}
 		}
-		else if(strcmp(command,"BTLOAD")==0){
+		else if(strcmp(command,"BTLOAD")==0){ //command = btload
 			if(!BTLOAD()){
 				flog<<"=========BTLOAD========"<<endl;
 				printErrorCode(200);
@@ -57,7 +57,7 @@ void Manager::run(const char* command)
 				printSuccessCode();
 			}
 		}
-		else if(strcmp(command ,"PRINT_BPTREE")==0){
+		else if(strcmp(command ,"PRINT_BPTREE")==0){ //command ==bptree
 			command=strtok(NULL," ");
 			char* temp = command;
 			command=strtok(NULL," ");
@@ -68,7 +68,7 @@ void Manager::run(const char* command)
 				printErrorCode(500);
 			}
 		}
-		else if(strcmp(command,"PRINT_CONFIDENCE")==0){
+		else if(strcmp(command,"PRINT_CONFIDENCE")==0){ //command==printconfidence
 			command=strtok(NULL," ");
 			char* temp = command;
 			command=strtok(NULL," ");
@@ -80,7 +80,7 @@ void Manager::run(const char* command)
 			}
 
 		}
-		else if(strcmp(command,"PRINT_RANGE")==0){
+		else if(strcmp(command,"PRINT_RANGE")==0){ //command==print_range
 			command=strtok(NULL," ");
 			char* temp = command;
 			command = strtok(NULL," ");
@@ -104,15 +104,15 @@ bool Manager::LOAD()
 {
 	ifstream market_fin;
 	char mk[500]="";
-	market_fin.open("market.txt");
+	market_fin.open("market.txt"); //market.txt open
 	if(!market_fin){
-		cout<<"market.txt not open!!"<<endl;
+		cout<<"market.txt not open!!"<<endl; //error print
 		return 0;
 	}
-	
+	//make table
 	list<string> try_list;
-	string endline ="end";
-	string special_end = "real_end";
+	string endline ="end"; //mark end
+	string special_end = "real_end"; //mark endline
 	//	int item_frequency(string item) {return table->find_frequency(item);}
 	while(!market_fin.eof()){ //index table
 		market_fin.getline(mk,500);
@@ -121,7 +121,6 @@ bool Manager::LOAD()
 
 		while(market_infor != NULL){
 			//string str_market_item(market_infor);
-			//cout<<market_infor<<" / "<<fpgrowth->item_frequency(market_infor)<<endl;
 			fpgrowth->createTable(market_infor, fpgrowth->item_frequency(market_infor));
 			try_list.push_back(market_infor);
 			market_infor = strtok(NULL,"\t");
@@ -130,7 +129,6 @@ bool Manager::LOAD()
 	}
 	try_list.push_back(special_end);
 	market_fin.close();
-	//fpgrowth->createTable(??,fpgrowth->item_frequenct())
 	fpgrowth->sort_descending_index(); //sort indext table for set map
 	
 	int num_for_make_dataTable=0;
@@ -145,19 +143,19 @@ bool Manager::LOAD()
 	list<pair<int, string> > temp_index = fpgrowth->getHeaderTable()->getindexTable();
 	list<string>::iterator iter_try = try_list.begin();
 	string check_empty = "";
-	int break_num = 0;
+	int break_num = 0; //break num
 	int iam_cont = 0;
 	while (*try_list.begin() != special_end) {
 		for (list<pair<int, string>>::iterator itertemp = temp_index.begin(); itertemp != temp_index.end(); itertemp++) {
 			if(iam_cont){iam_cont=0;}
-			else{itertemp=temp_index.begin();}//여기여기여깅,~~
+			else{itertemp=temp_index.begin();}//here
 			//for(; iter_try != try_list.end() ; iter_try++){
-			while (*try_list.begin() != "end") {
+			while (*try_list.begin() != "end") { //if end approach => escape
 				if (itertemp->second == *iter_try) {
 					if (itertemp->first < fpgrowth->get_threshold()) { 
-						iter_try=try_list.erase(iter_try); break_num = 1; continue; } //얘 원래 브레이큰ㄷ ㅔ콘티뉴로 바꿈!!
+						iter_try=try_list.erase(iter_try); break_num = 1; continue; } //break->continue;
 					manager_item_list.push_back(*iter_try);
-					iter_try=try_list.erase(iter_try);
+					iter_try=try_list.erase(iter_try); //delete
 					iter_try = try_list.begin();
 					continue;
 				}
@@ -181,7 +179,6 @@ bool Manager::LOAD()
 	return true;
 }
 bool Manager::SAVE(){/*
-	cout<<"난 메니저에서 save"<<endl;
 	fpgrowth->saveFrequentPatterns();
 	fpgrowth->printPatern(); */
 	return 1;
@@ -197,7 +194,7 @@ bool Manager::BTLOAD()
 	}
 
 	while(!result_fin.eof()){ //index table
-      set<string> result_list;    ///////////////////////이렇게해도 되나??
+      set<string> result_list;    //set new
       result_fin.getline(rs,5500);
       char* command1 = strtok(rs, "\t");
 	  char*command= strtok(NULL,"\t");
@@ -209,11 +206,7 @@ bool Manager::BTLOAD()
 		 command=strtok(NULL,"\t");
       }
 	  int o_num=atoi(command1);
-	  //cout<<o_num;
-	 // set<string>::iterator it_p=result_list.begin();
-	 // string what_s = *it_p;
-	 // int save_number = atoi(what_s.c_str());
-	 // result_list.erase(it_p);
+	 
     bptree->Insert(o_num, result_list);
    }
 	result_fin.close();
@@ -265,7 +258,7 @@ bool Manager::PRINT_CONFIDENCE(char* item, double rate) {
 
 bool Manager::PRINT_RANGE(char* item, int start, int end) {
 	string pss_item(item);
-	flog<<"========PRINT_CONFIDENCE==========="<<endl;
+	flog<<"========PRINT_RANGE==========="<<endl;
 	flog<<"FrequentPattern"<<"  "<<"Frequency"<<endl;
 	bptree->printRange(pss_item, start, end);
 	flog<<"==================================="<<endl;

@@ -6,43 +6,14 @@ FPGrowth::~FPGrowth() {
 }
 
 void FPGrowth::createFPtree(FPNode* root, HeaderTable* table, list<string> item_array, int frequency) {
-	/*여기서부터
-	list<string> smaller_treshold;
-	int set_continue = 0;
-	// 난 여기딸랑
-	//iter=table->getindexTable().begin();
-	//while(1){
-		//if(iter->first < threshold){
-			smaller_treshold.push_back(iter->second);
-		}
-		if(iter == table->getindexTable().end()) break;
-		iter++;
-	//}여기 딸랑
-	list<pair<int, string>> temp_index = table->getindexTable();
-	for (iter = temp_index.begin(); iter != temp_index.end(); iter++) {
-		if (iter->first < threshold) {
-			smaller_treshold.push_back(iter->second);
-		}
-	}여기까지*/
 	FPNode*currnode = root;
 	list<string>::iterator iter2;
 	for(iter2=item_array.begin(); iter2!=item_array.end();iter2++){
 		if(*iter2=="end"){
-				//넘어가기 ㅇ추가
+				//plus pass
 			currnode=root;
 			continue;
-		}/*
-		for(list<string>::iterator iter3=smaller_treshold.begin(); iter3 != smaller_treshold.end(); iter3++){
-			if(*iter2 == *iter3){
-				//넘어가기 추가
-				set_continue=1;
-				break;
-			}
 		}
-		if(set_continue){
-			set_continue=0;
-			continue;
-		}*/
 		FPNode* check_children = currnode->getChildrenNode(*iter2);
 		if(check_children == NULL){
 			FPNode* newnode = new FPNode;
@@ -65,12 +36,12 @@ void FPGrowth::createFPtree(FPNode* root, HeaderTable* table, list<string> item_
 	return;
 }
 
-void FPGrowth::connectNode(HeaderTable* table, string item, FPNode* node) { /*
+void FPGrowth::connectNode(HeaderTable* table, string item, FPNode* node) { 
 	FPNode* currnode = (table->getdataTable().find(item))->second;
 	while(1){
 		if(currnode->getNext()==NULL){currnode->setNext(node); break;}
 		currnode=currnode->getNext();
-	}*/
+	}
 	return;
 }
 
@@ -146,11 +117,11 @@ void FPGrowth::saveFrequentPatterns(){ /*
 	}
 	
 	map<string,FPNode*> Print_dataTable =table->getdataTable();
-	for (iter = temp_index.begin(); iter != temp_index.end(); iter++) { //indextable 업데이트를 시키기위함이다!!
+	for (iter = temp_index.begin(); iter != temp_index.end(); iter++) { 
 		//temp_index = inti_index;
 		list<pair<int,string>> inti_index;
 		string ag_tp= iter->second;
-		map<string,FPNode*>::iterator iter4 =Print_dataTable.find(ag_tp); //찾을게
+		map<string,FPNode*>::iterator iter4 =Print_dataTable.find(ag_tp); 
 		int save_freq =0;
 		FPNode* currnode=iter4->second;
 		FPNode* savenode=currnode;
@@ -161,8 +132,8 @@ void FPGrowth::saveFrequentPatterns(){ /*
 			
 			while(currnode->getParent() != NULL){
 				save_freq = currnode->getFrequency();
-				for(list<pair<int,string>>::iterator iter_nu=temp_index.begin(); iter_nu != temp_index.end(); iter_nu++){ //마지막 노드 fre에 맞게모두 set해주기
-					if(iter_nu->second == currnode->getitem()){ //여기 abort 주의!!!!!!!!!!!!!!!!!!!!!!!!
+				for(list<pair<int,string>>::iterator iter_nu=temp_index.begin(); iter_nu != temp_index.end(); iter_nu++){ //
+					if(iter_nu->second == currnode->getitem()){ //
 					//iter_nu->first = save_freq; break;
 					string ttt= currnode->getitem();
 					inti_index.push_back(make_pair(save_freq,ttt));
@@ -173,8 +144,7 @@ void FPGrowth::saveFrequentPatterns(){ /*
 			}
 			
 		}
-		//와~ 그 인덱스의 item은 끝났다 모두 초기화 해줄것
-		//다른 트리 만드는 함수 호출해줄것 거기서 private에 넣어주기 모두 넣어주면
+		
 		string putput= iter4->first;
 		cout<<"============================="<<endl;
 		once_doit(inti_index,putput);
@@ -189,10 +159,7 @@ void FPGrowth::once_doit(list<pair<int, string>> save_freque1, string currentite
     HeaderTable* save_table = new HeaderTable;
 
     int get_save_freq=0;
-//여기가 각각의 fptree를 만드는 함수인데 바꾸자
-//currentitem 단위로 끊으면서 다시 만들어줘야할듯 list 그렇게 만들고
-//받아온 indextable에서 같은 item이면 fre 수를 합쳐줘 그다음 treshold 보다 큰것들로만해서 다시 datatable을 만들고
-//그 table로 fptree만든다. 그 다음은??
+
     list<pair<int,string>> save_freque;
     for(list<pair<int, string>>::iterator itera=save_freque1.begin(); itera!= save_freque1.end(); itera++){
     	if(itera->first< threshold){continue;}
