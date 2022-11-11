@@ -68,17 +68,18 @@ void Manager::run(const char* command)
 				printErrorCode(500);
 			}
 		}
-		//else if(strcmp(command,"PRINT_CONFIDENCE")==0){
-			//command=strtok(NULL,"\t");
-			//char* temp = command;
-			//command=strtok(NULL,"\t");
-			//const char* double_be = command;
-			//double con_nm = atof(double_be);
-			//if(!PRINT_CONFIDENCE(temp, con_nm)){
+		else if(strcmp(command,"PRINT_CONFIDENCE")==0){
+			command=strtok(NULL," ");
+			char* temp = command;
+			command=strtok(NULL," ");
+			const char* double_be = command;
+			double con_nm = atof(double_be);
+			if(!PRINT_CONFIDENCE(temp, con_nm)){
+				flog<<"======PRINT_CONFIDENCE====="<<endl;
+				printErrorCode(600);
+			}
 
-			//}
-
-		//}
+		}
 	
 	}
 	fin.close();
@@ -234,10 +235,19 @@ bool Manager::PRINT_BPTREE(char* item, int min_frequency) {
 
 bool Manager::PRINT_CONFIDENCE(char* item, double rate) {
 	list<pair<int, string>> find_fre = fpgrowth->getHeaderTable()->getindexTable();
+	double save_hownum = 0;
 	for(list<pair<int, string>>::iterator i_ter= find_fre.begin(); i_ter != find_fre.end(); i_ter++ ){
-		
+		if(i_ter->second == item){save_hownum=i_ter->first;}
 	}
+	if(save_hownum==0 || bptree->getRoot()==NULL){ return 0;}
+	string r_tem(item);
+	flog<<"========PRINT_CONFIDENCE==========="<<endl;
+	flog<<"FrequentPattern"<<"  "<<"Frequency"<<"\t"<<"Confidence"<<endl;
+	if(!bptree->printConfidence(r_tem, save_hownum, rate)){ return 0;}
+	flog<<"==================================="<<endl;
+	return 1;
 }
+	
 
 bool Manager::PRINT_RANGE(char* item, int start, int end) {
 	
