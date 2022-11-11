@@ -6,319 +6,126 @@ Success
 =======================
 ========PRINT_BPTREE===========
 FrequentPattern	 	Frequency
-===============================
-=========LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-========PRINT_BPTREE===========
-FrequentPattern	 	Frequency
-===============================
-=========LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-========PRINT_BPTREE===========
-FrequentPattern	 	Frequency
-===============================
-=========LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-========PRINT_BPTREE===========
-FrequentPattern	 	Frequency
-===============================
-=========LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-========PRINT_BPTREE===========
-FrequentPattern	 	Frequency
-===============================
-=========LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-========PRINT_BPTREE===========
-FrequentPattern	 	Frequency
-===============================
-=========LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-========PRINT_BPTREE===========
-FrequentPattern	 	Frequency
-===============================
-=========LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-========PRINT_BPTREE===========
-FrequentPattern	 	Frequency
-{almonds, eggs}  2
-{burgers, eggs}  2
-{chicken, eggs}  2
-{eggs, turkey}  2
-{almonds, burgers, eggs}  2
-{almonds, eggs, soup}  2
-{burgers, eggs, soup}  2
-{chicken, eggs, mineral water}  2
-{almonds, burgers, eggs, soup}  2
-{chocolate, eggs}  3
-{eggs, french fries}  3
-{eggs, mineral water}  3
-{chocolate, eggs, soup}  3
-{eggs, soup}  4
-{eggs, french fries, soup}  4
-========================================LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-=========LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-========PRINT_BPTREE===========
-FrequentPattern	 	Frequency
-{almonds, eggs}  2
-{burgers, eggs}  2
-{chicken, eggs}  2
-{eggs, turkey}  2
-{almonds, burgers, eggs}  2
-{almonds, eggs, soup}  2
-{burgers, eggs, soup}  2
-{chicken, eggs, mineral water}  2
-{almonds, burgers, eggs, soup}  2
-{chocolate, eggs}  3
-{eggs, french fries}  3
-{eggs, mineral water}  3
-{chocolate, eggs, soup}  3
-{eggs, soup}  4
-{eggs, french fries, soup}  4
-===============================
-=========LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-========PRINT_BPTREE===========
-FrequentPattern	 	Frequency
-{almonds, eggs}  2
-{burgers, eggs}  2
-{chicken, eggs}  2
-{eggs, french fries}  2
-{eggs, mineral water}  2
-{eggs, turkey}  2
-{almonds, burgers, eggs}  2
-{almonds, eggs, soup}  2
-{burgers, eggs, soup}  2
-{chicken, eggs, mineral water}  2
-{eggs, french fries, soup}  2
-{almonds, burgers, eggs, soup}  2
-{chocolate, eggs}  3
-{chocolate, eggs, soup}  3
-{eggs, soup}  4
-===============================
-=========LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-========PRINT_BPTREE===========
-FrequentPattern	 	Frequency
-{almonds, eggs}  2
-{burgers, eggs}  2
-{chicken, eggs}  2
-{eggs, french fries}  2
-{eggs, mineral water}  2
-{eggs, turkey}  2
-{almonds, burgers, eggs}  2
-{almonds, eggs, soup}  2
-{burgers, eggs, soup}  2
-{chicken, eggs, mineral water}  2
-{eggs, french fries, soup}  2
-{almonds, burgers, eggs, soup}  2
-{chocolate, eggs}  3
-{chocolate, eggs, soup}  3
-{eggs, soup}  4
-===============================
-{milk, spaghetti}  3  0.6
-=========LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-========PRINT_BPTREE===========
-FrequentPattern	 	Frequency
-{almonds, eggs}  2
-{burgers, eggs}  2
-{chicken, eggs}  2
-{eggs, french fries}  2
-{eggs, mineral water}  2
-{eggs, turkey}  2
-{almonds, burgers, eggs}  2
-{almonds, eggs, soup}  2
-{burgers, eggs, soup}  2
-{chicken, eggs, mineral water}  2
-{eggs, french fries, soup}  2
-{almonds, burgers, eggs, soup}  2
-{chocolate, eggs}  3
-{chocolate, eggs, soup}  3
-{eggs, soup}  4
-===============================
-{milk, spaghetti}  3  0.6
-=========LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-========PRINT_BPTREE===========
-FrequentPattern	 	Frequency
-{almonds, eggs}  2
-{burgers, eggs}  2
-{chicken, eggs}  2
-{eggs, french fries}  2
-{eggs, mineral water}  2
-{eggs, turkey}  2
-{almonds, burgers, eggs}  2
-{almonds, eggs, soup}  2
-{burgers, eggs, soup}  2
-{chicken, eggs, mineral water}  2
-{eggs, french fries, soup}  2
-{almonds, burgers, eggs, soup}  2
-{chocolate, eggs}  3
-{chocolate, eggs, soup}  3
-{eggs, soup}  4
-===============================
-======PRINT_CONFIDENCE=====
-ERROR  600
-=======================
-
-=========LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-========PRINT_BPTREE===========
-FrequentPattern	 	Frequency
-{almonds, eggs}  2
-{burgers, eggs}  2
-{chicken, eggs}  2
-{eggs, french fries}  2
-{eggs, mineral water}  2
-{eggs, turkey}  2
-{almonds, burgers, eggs}  2
-{almonds, eggs, soup}  2
-{burgers, eggs, soup}  2
-{chicken, eggs, mineral water}  2
-{eggs, french fries, soup}  2
-{almonds, burgers, eggs, soup}  2
-{chocolate, eggs}  3
-{chocolate, eggs, soup}  3
-{eggs, soup}  4
-===============================
-{eggs, soup}  4 0.8
-=========LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-========PRINT_BPTREE===========
-FrequentPattern	 	Frequency
-{almonds, eggs}  2
-{burgers, eggs}  2
-{chicken, eggs}  2
-{eggs, french fries}  2
-{eggs, mineral water}  2
-{eggs, turkey}  2
-{almonds, burgers, eggs}  2
-{almonds, eggs, soup}  2
-{burgers, eggs, soup}  2
-{chicken, eggs, mineral water}  2
-{eggs, french fries, soup}  2
-{almonds, burgers, eggs, soup}  2
-{chocolate, eggs}  3
-{chocolate, eggs, soup}  3
-{eggs, soup}  4
-===============================
-{almonds, eggs}  2  0.4
-{burgers, eggs}  2  0.4
-{chicken, eggs}  2  0.4
-{eggs, french fries}  2  0.4
-{eggs, mineral water}  2  0.4
-{eggs, turkey}  2  0.4
-{almonds, burgers, eggs}  2  0.4
-{almonds, eggs, soup}  2  0.4
-{burgers, eggs, soup}  2  0.4
-{chicken, eggs, mineral water}  2  0.4
-{eggs, french fries, soup}  2  0.4
-{almonds, burgers, eggs, soup}  2  0.4
-{chocolate, eggs}  3 0.6
-{chocolate, eggs, soup}  3 0.6
-{eggs, soup}  4 0.8
-=========LOAD========
-Success
-=======================
-=========BTLOAD========
-Success
-=======================
-========PRINT_BPTREE===========
-FrequentPattern	 	Frequency
-{almonds, eggs}  2
-{burgers, eggs}  2
-{chicken, eggs}  2
-{eggs, french fries}  2
-{eggs, mineral water}  2
-{eggs, turkey}  2
-{almonds, burgers, eggs}  2
-{almonds, eggs, soup}  2
-{burgers, eggs, soup}  2
-{chicken, eggs, mineral water}  2
-{eggs, french fries, soup}  2
-{almonds, burgers, eggs, soup}  2
-{chocolate, eggs}  3
-{chocolate, eggs, soup}  3
-{eggs, soup}  4
+{almonds, eggs} 2
+{burgers, eggs} 2
+{chicken, eggs} 2
+{french fries, eggs} 2
+{mineral water, eggs} 2
+{turkey, eggs} 2
+{almonds, burgers, eggs} 2
+{almonds, soup, eggs} 2
+{burgers, soup, eggs} 2
+{chicken, mineral water, eggs} 2
+{french fries, soup, eggs} 2
+{almonds, burgers, soup, eggs} 2
+{chocolate, eggs} 3
+{chocolate, soup, eggs} 3
+{soup, eggs} 4
 ===============================
 ========PRINT_CONFIDENCE===========
 FrequentPattern  Frequency	Confidence
-{almonds, eggs}  2  0.4
-{burgers, eggs}  2  0.4
-{chicken, eggs}  2  0.4
-{eggs, french fries}  2  0.4
-{eggs, mineral water}  2  0.4
-{eggs, turkey}  2  0.4
-{almonds, burgers, eggs}  2  0.4
-{almonds, eggs, soup}  2  0.4
-{burgers, eggs, soup}  2  0.4
-{chicken, eggs, mineral water}  2  0.4
-{eggs, french fries, soup}  2  0.4
-{almonds, burgers, eggs, soup}  2  0.4
-{chocolate, eggs}  3 0.6
-{chocolate, eggs, soup}  3 0.6
-{eggs, soup}  4 0.8
+{almonds, eggs} 2  0.4
+{burgers, eggs} 2  0.4
+{chicken, eggs} 2  0.4
+{french fries, eggs} 2  0.4
+{mineral water, eggs} 2  0.4
+{turkey, eggs} 2  0.4
+{almonds, burgers, eggs} 2  0.4
+{almonds, soup, eggs} 2  0.4
+{burgers, soup, eggs} 2  0.4
+{chicken, mineral water, eggs} 2  0.4
+{french fries, soup, eggs} 2  0.4
+{almonds, burgers, soup, eggs} 2  0.4
+{chocolate, eggs} 3 0.6
+{chocolate, soup, eggs} 3 0.6
+{soup, eggs} 4 0.8
+===================================
+=========LOAD========
+Success
+=======================
+=========BTLOAD========
+Success
+=======================
+========PRINT_BPTREE===========
+FrequentPattern	 	Frequency
+{almonds, eggs} 2
+{burgers, eggs} 2
+{chicken, eggs} 2
+{french fries, eggs} 2
+{mineral water, eggs} 2
+{turkey, eggs} 2
+{almonds, burgers, eggs} 2
+{almonds, soup, eggs} 2
+{burgers, soup, eggs} 2
+{chicken, mineral water, eggs} 2
+{french fries, soup, eggs} 2
+{almonds, burgers, soup, eggs} 2
+{chocolate, eggs} 3
+{chocolate, soup, eggs} 3
+{soup, eggs} 4
+===============================
+========PRINT_CONFIDENCE===========
+FrequentPattern  Frequency	Confidence
+{almonds, eggs} 2  0.4
+{burgers, eggs} 2  0.4
+{chicken, eggs} 2  0.4
+{french fries, eggs} 2  0.4
+{mineral water, eggs} 2  0.4
+{turkey, eggs} 2  0.4
+{almonds, burgers, eggs} 2  0.4
+{almonds, soup, eggs} 2  0.4
+{burgers, soup, eggs} 2  0.4
+{chicken, mineral water, eggs} 2  0.4
+{french fries, soup, eggs} 2  0.4
+{almonds, burgers, soup, eggs} 2  0.4
+{chocolate, eggs} 3 0.6
+{chocolate, soup, eggs} 3 0.6
+{soup, eggs} 4 0.8
+===================================
+{spaghetti, milk} 3
+=========LOAD========
+Success
+=======================
+=========BTLOAD========
+Success
+=======================
+========PRINT_BPTREE===========
+FrequentPattern	 	Frequency
+{almonds, eggs} 2
+{burgers, eggs} 2
+{chicken, eggs} 2
+{french fries, eggs} 2
+{mineral water, eggs} 2
+{turkey, eggs} 2
+{almonds, burgers, eggs} 2
+{almonds, soup, eggs} 2
+{burgers, soup, eggs} 2
+{chicken, mineral water, eggs} 2
+{french fries, soup, eggs} 2
+{almonds, burgers, soup, eggs} 2
+{chocolate, eggs} 3
+{chocolate, soup, eggs} 3
+{soup, eggs} 4
+===============================
+========PRINT_CONFIDENCE===========
+FrequentPattern  Frequency	Confidence
+{almonds, eggs} 2  0.4
+{burgers, eggs} 2  0.4
+{chicken, eggs} 2  0.4
+{french fries, eggs} 2  0.4
+{mineral water, eggs} 2  0.4
+{turkey, eggs} 2  0.4
+{almonds, burgers, eggs} 2  0.4
+{almonds, soup, eggs} 2  0.4
+{burgers, soup, eggs} 2  0.4
+{chicken, mineral water, eggs} 2  0.4
+{french fries, soup, eggs} 2  0.4
+{almonds, burgers, soup, eggs} 2  0.4
+{chocolate, eggs} 3 0.6
+{chocolate, soup, eggs} 3 0.6
+{soup, eggs} 4 0.8
+===================================
+========PRINT_CONFIDENCE===========
+FrequentPattern  Frequency
+{spaghetti, milk} 3
 ===================================

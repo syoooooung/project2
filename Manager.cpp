@@ -80,6 +80,20 @@ void Manager::run(const char* command)
 			}
 
 		}
+		else if(strcmp(command,"PRINT_RANGE")==0){
+			command=strtok(NULL," ");
+			char* temp = command;
+			command = strtok(NULL," ");
+			string small=command;
+			int min_num = atoi(small.c_str());
+			command = strtok(NULL," ");
+			string max= command;
+			int max_num= atoi(max.c_str());
+			if(!PRINT_RANGE(temp,min_num, max_num)){
+
+			}
+			
+		}
 	
 	}
 	fin.close();
@@ -250,7 +264,12 @@ bool Manager::PRINT_CONFIDENCE(char* item, double rate) {
 	
 
 bool Manager::PRINT_RANGE(char* item, int start, int end) {
-	
+	string pss_item(item);
+	flog<<"========PRINT_CONFIDENCE==========="<<endl;
+	flog<<"FrequentPattern"<<"  "<<"Frequency"<<endl;
+	bptree->printRange(pss_item, start, end);
+	flog<<"==================================="<<endl;
+	return 1;
 }
 
 void Manager::printErrorCode(int n) {				//ERROR CODE PRINT

@@ -205,12 +205,9 @@ bool BpTree::printConfidence(string item, double item_frequency, double min_conf
             for (F_iter = tmp_amp.begin(); F_iter != tmp_amp.end(); F_iter++) {
                 set<string> che_set = F_iter->second;
                 if (che_set.find(item) == che_set.end()) { continue; } //입력받은 글자가 있는 지 확인
-                *fout << "{";
-                for (set<string>::iterator plz = F_iter->second.begin(); plz != F_iter->second.end(); ) {
-                    *fout << *plz; plz++; if (plz != F_iter->second.end()) { *fout << ", ";  }
-                }
+                printFrequentPatterns(che_set, item);
 				print_con=iter_print->first / item_frequency;
-                *fout << "}" << "  " << iter_print->first <<"  "<<print_con<<endl;
+                *fout << iter_print->first <<"  "<<print_con<<endl;
             }
         }
     }
@@ -225,12 +222,9 @@ bool BpTree::printConfidence(string item, double item_frequency, double min_conf
                 for (F_iter = tmp_amp.begin(); F_iter != tmp_amp.end(); F_iter++) {
                     set<string> che_set = F_iter->second;
                     if (che_set.find(item) == che_set.end()) { continue; } //입력받은 글자가 있는 지 확인
-                    *fout << "{";
-                    for (set<string>::iterator plz = F_iter->second.begin(); plz != F_iter->second.end(); ) {
-                        *fout << *plz; plz++; if (plz != F_iter->second.end()) { *fout << ", "; }
-                    }
+                    printFrequentPatterns(che_set, item);
 					print_con=iter_print->first / item_frequency;
-                    *fout << "}" << "  " << iter_print->first <<" "<<print_con<< endl;
+                    *fout << iter_print->first <<" "<<print_con<< endl;
                 }
         }
     }
@@ -251,11 +245,8 @@ bool BpTree::printFrequency(string item, int min_frequency)//print winratio in a
             for (F_iter = tmp_amp.begin(); F_iter != tmp_amp.end(); F_iter++) {
                 set<string> che_set = F_iter->second;
                 if (che_set.find(item) == che_set.end()) { continue; } //입력받은 글자가 있는 지 확인
-                *fout << "{";
-                for (set<string>::iterator plz = F_iter->second.begin(); plz != F_iter->second.end(); ) {
-                    *fout << *plz; plz++; if (plz != F_iter->second.end()) { *fout << ", ";  }
-                }
-                *fout << "}" << "  " << iter_print->first << endl;
+                printFrequentPatterns(che_set,  item);
+                *fout << iter_print->first << endl;
             }
         }
     }
@@ -270,17 +261,47 @@ bool BpTree::printFrequency(string item, int min_frequency)//print winratio in a
                 for (F_iter = tmp_amp.begin(); F_iter != tmp_amp.end(); F_iter++) {
                     set<string> che_set = F_iter->second;
                     if (che_set.find(item) == che_set.end()) { continue; } //입력받은 글자가 있는 지 확인
-                    *fout << "{";
-                    for (set<string>::iterator plz = F_iter->second.begin(); plz != F_iter->second.end(); ) {
-                        *fout << *plz; plz++; if (plz != F_iter->second.end()) { *fout << ", "; }
-                    }
-                    *fout << "}" << "  " << iter_print->first << endl;
+                    printFrequentPatterns(che_set, item);
+                    *fout  << iter_print->first << endl;
                 }
         }
     }
     return true;
 }
 bool BpTree::printRange(string item, int min, int max) {
+	 BpTreeNode* currnode = searchDataNode(min);
+
+    map<int, FrequentPatternNode*>::iterator iter_print = currnode->getDataMap()->begin();
+    for (iter_print = currnode->getDataMap()->begin(); iter_print != currnode->getDataMap()->end(); iter_print++) {
+        if (iter_print->first >= min || iter_print->first <= max) {
+            FrequentPatternNode* F_curr = iter_print->second;
+            multimap<int, set<string> > tmp_amp = F_curr->getList();
+            multimap<int, set<string> >::iterator F_iter =tmp_amp.begin();
+            for (F_iter = tmp_amp.begin(); F_iter != tmp_amp.end(); F_iter++) {
+                set<string> che_set = F_iter->second;
+                if (che_set.find(item) == che_set.end()) { continue; } //입력받은 글자가 있는 지 확인
+                printFrequentPatterns(che_set,  item);
+                *fout << iter_print->first << endl;
+            }
+        }
+    }
+    while (currnode->getNext() != NULL) {
+        currnode = currnode->getNext();
+        iter_print = currnode->getDataMap()->begin();
+        for (iter_print = currnode->getDataMap()->begin(); iter_print != currnode->getDataMap()->end(); iter_print++) {
+			if (iter_print->first >= min || iter_print->first <= max) {
+                FrequentPatternNode* F_curr = iter_print->second;
+                multimap<int, set<string> > tmp_amp = F_curr->getList();
+                multimap<int, set<string> >::iterator F_iter = tmp_amp.begin();
+                for (F_iter = tmp_amp.begin(); F_iter != tmp_amp.end(); F_iter++) {
+                    set<string> che_set = F_iter->second;
+                    if (che_set.find(item) == che_set.end()) { continue; } //입력받은 글자가 있는 지 확인
+                    printFrequentPatterns(che_set, item);
+                    *fout  << iter_print->first << endl;
+                }
+			}
+        }
+    }
 
     return true;
 }
@@ -292,6 +313,7 @@ void BpTree::printFrequentPatterns(set<string> pFrequentPattern, string item) {
         string temp = *it++;
         if (temp != item) *fout << temp;
         if (it == curPattern.end()) {
+			*fout<<", "<<item;
             *fout << "} ";
             break;
         }
