@@ -42,6 +42,43 @@ void Manager::run(const char* command)
 				printErrorCode(400);
 			}
 		}
+		else if(strcmp(command,"SAVE")==0){
+			if(!SAVE()){
+				
+			}
+		}
+		else if(strcmp(command,"BTLOAD")==0){
+			if(!BTLOAD()){
+				flog<<"=========BTLOAD========"<<endl;
+				printErrorCode(200);
+			}
+			else{
+				flog<<"=========BTLOAD========"<<endl;
+				printSuccessCode();
+			}
+		}
+		else if(strcmp(command ,"PRINT_BPTREE")==0){
+			command=strtok(NULL," ");
+			char* temp = command;
+			command=strtok(NULL," ");
+			string wait_St=command;
+			int brn_num = atoi(wait_St.c_str());
+			if(!PRINT_BPTREE(temp, brn_num)){
+				flog<<"=========PRINT_BPTREE========"<<endl;
+				printErrorCode(500);
+			}
+		}
+		//else if(strcmp(command,"PRINT_CONFIDENCE")==0){
+			//command=strtok(NULL,"\t");
+			//char* temp = command;
+			//command=strtok(NULL,"\t");
+			//const char* double_be = command;
+			//double con_nm = atof(double_be);
+			//if(!PRINT_CONFIDENCE(temp, con_nm)){
+
+			//}
+
+		//}
 	
 	}
 	fin.close();
@@ -123,19 +160,48 @@ bool Manager::LOAD()
 		//if(break_num){break;}
 	}
 	//manager_item_list.push_back(market_infor);
-	for(list<string>::iterator iter_just=manager_item_list.begin(); iter_just != manager_item_list.end(); iter_just++){
-		cout<<*iter_just<<" ";
-		if(*iter_just=="end"){cout<<endl;	
-		}
-	}
 
 	fpgrowth->createFPtree(fpgrowth->getTree(), fpgrowth->getHeaderTable(), manager_item_list, 1);
 
 	return true;
 }
+bool Manager::SAVE(){/*
+	cout<<"난 메니저에서 save"<<endl;
+	fpgrowth->saveFrequentPatterns();
+	fpgrowth->printPatern(); */
+	return 1;
+}
 
 bool Manager::BTLOAD()
-{	
+{	ifstream result_fin;
+	char rs[10000]="";
+	result_fin.open("result1.txt");
+	if(!result_fin){
+		cout<<"result1.txt not open!!"<<endl;
+		return 0;
+	}
+
+	while(!result_fin.eof()){ //index table
+      set<string> result_list;    ///////////////////////이렇게해도 되나??
+      result_fin.getline(rs,5500);
+      char* command1 = strtok(rs, "\t");
+	  char*command= strtok(NULL,"\t");
+      //string wait_St=command;
+      //int save_num = atoi(wait_St.c_str());
+      while(command != NULL){
+         string put_re=command;
+         result_list.insert(put_re);
+		 command=strtok(NULL,"\t");
+      }
+	  int o_num=atoi(command1);
+	  //cout<<o_num;
+	 // set<string>::iterator it_p=result_list.begin();
+	 // string what_s = *it_p;
+	 // int save_number = atoi(what_s.c_str());
+	 // result_list.erase(it_p);
+    bptree->Insert(o_num, result_list);
+   }
+	result_fin.close();
 	return true;
 }
 
@@ -158,11 +224,19 @@ bool Manager::PRINT_FPTREE() {
 }
 
 bool Manager::PRINT_BPTREE(char* item, int min_frequency) {
-	
+	string ttem(item);
+	flog<<"========PRINT_BPTREE==========="<<endl;
+	flog<<"FrequentPattern"<<"\t \t"<<"Frequency"<<endl;
+	bptree->printFrequency(ttem, min_frequency);
+	flog<<"==============================="<<endl;
+	return 1;
 }
 
 bool Manager::PRINT_CONFIDENCE(char* item, double rate) {
-	
+	list<pair<int, string>> find_fre = fpgrowth->getHeaderTable()->getindexTable();
+	for(list<pair<int, string>>::iterator i_ter= find_fre.begin(); i_ter != find_fre.end(); i_ter++ ){
+		
+	}
 }
 
 bool Manager::PRINT_RANGE(char* item, int start, int end) {

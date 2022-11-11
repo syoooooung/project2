@@ -1,0 +1,47 @@
+2	almonds	burgers
+2	almonds	burgers	eggs
+2	almonds	burgers	eggs	soup
+2	almonds	burgers	soup
+2	almonds	eggs
+2	almonds	eggs	soup
+2	almonds	soup
+2	avocado	soup
+2	black tea	mineral water
+2	black tea	mineral water	salmon
+2	black tea	mineral water	salmon	spaghetti
+2	black tea	mineral water	spaghetti
+2	black tea	salmon
+2	black tea	salmon	spaghetti
+2	black tea	spaghetti
+3	body spray	green tea
+2   body spray	green tea	pancakes
+2	body spray	green tea	soup
+2	body spray	pancakes
+2	body spray	soup
+2	brownies	green tea
+2	burgers	eggs
+2	burgers	eggs	soup
+2	burgers	french fries
+2	burgers	french fries	green tea
+2	burgers	french fries	green tea	soup
+2	burgers	french fries	soup
+2	burgers	green tea
+2	burgers	green tea	soup
+3	burgers	soup
+2	chicken	eggs
+2	chicken	eggs	mineral water
+2	chicken	mineral water
+2	chicken	soup
+3	chocolate	eggs
+3	chocolate	eggs	soup
+2	chocolate	green tea
+2	chocolate	green tea	spaghetti
+2	chocolate	ground beef
+2	chocolate	ground beef	soup
+4	chocolate	soup
+2	chocolate	spaghetti
+3	eggs	french fries
+4	eggs	french fries	soup
+3	eggs	mineral water
+4	eggs	soup
+2	eggs	turkey

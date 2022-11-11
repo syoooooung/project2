@@ -29,6 +29,7 @@ public:
 		//log.txt 열기
 		flog.open("log.txt",ios::app);
 		fpgrowth = new FPGrowth(&flog,threshold);
+		bptree= new BpTree(&flog, 3);
 	}
 
 
@@ -52,10 +53,12 @@ public:
 	bool PRINT_RANGE(char* item, int start, int end);
 	bool PRINT_CONFIDENCE(char* item, double rate);
 	bool PRINT_BPTREE(char* item, int min_frequency);
+	bool SAVE();
 
 
 	void printErrorCode(int n);
 	void printSuccessCode();
+	
 
 };
 

@@ -1,12 +1,12 @@
 #pragma once
 #include "FrequentPatternNode.h"
 #include "FPNode.h"
+#include <map>
 class BpTreeNode
 {
 private:
 	BpTreeNode* pParent;
 	BpTreeNode* pMostLeftChild;
-
 public:
 	BpTreeNode() {
 		pParent = NULL;

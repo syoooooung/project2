@@ -2,6 +2,7 @@
 #define _BpTreeDataNode_H_
 
 #include "BpTreeNode.h"
+#include "FrequentPatternNode.h"
 class BpTreeDataNode : public BpTreeNode
 {
 private:
@@ -20,7 +21,8 @@ public:
 	BpTreeNode* getPrev() { return pPrev; }
 
 	void insertDataMap(int n, FrequentPatternNode* pN) {
-		mapData.insert(map<int, FrequentPatternNode*>::value_type(n, pN));
+		//mapData.insert(map<int, FrequentPatternNode*>::value_type(n, pN));
+		mapData.insert(make_pair(n, pN));
 	}
 
 	void deleteMap(int n) {

@@ -9,6 +9,9 @@
 class BpTree {
 private:
 	BpTreeNode* root;
+	BpTreeNode * da_root = NULL;
+	BpTreeNode* in_root = NULL;
+
 	int			order;		// m children
 	ofstream* fout;
 public:
@@ -16,6 +19,8 @@ public:
 		root = NULL;
 		this->order = order;
 		this->fout = fout;
+		BpTreeNode * da_root = new BpTreeDataNode; //지울것
+		BpTreeNode * in_root = new BpTreeIndexNode; //지울것
 	}
 	~BpTree();
 	/* essential */

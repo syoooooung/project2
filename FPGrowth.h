@@ -29,7 +29,8 @@ public:
 	void createFPtree(FPNode* root, HeaderTable* table, list<string> item_array, int frequency);
 	void connectNode(HeaderTable* table, string item, FPNode* node);
 	void sort_descending_index(){table->descendingIndexTable();}
-	
+	void push_freqPattern(set<string> A, int B){frequenctPatterns.insert(make_pair(A, B));}
+
 	void frequenctPatternSetting() {
 		table->ascendingIndexTable();
 		frequenctPatterns = getFrequentPatterns(table, fpTree);
@@ -46,8 +47,10 @@ public:
 
 	bool printList();
 	bool printTree();
+	void printPatern();
 	void saveFrequentPatterns();
 
+	void once_doit(list<pair<int, string>> save_freque, string currentitem);
 	};
 
 
