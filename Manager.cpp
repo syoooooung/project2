@@ -15,7 +15,7 @@ void Manager::run(const char* command)
 	{
 		/* You must fill here */
 		fin.getline(cmd,550);
-		char* command = strtok(cmd, " ");
+		char* command = strtok(cmd, "	");
 		if (command == NULL) { cout<< "No command "; return;}
 		if(strcmp(command, "LOAD")==0){ //if command==load
 			if(!LOAD()){  //do load
@@ -58,9 +58,9 @@ void Manager::run(const char* command)
 			}
 		}
 		else if(strcmp(command ,"PRINT_BPTREE")==0){ //command ==bptree
-			command=strtok(NULL," ");
+			command=strtok(NULL,"	");
 			char* temp = command;
-			command=strtok(NULL," ");
+			command=strtok(NULL,"	");
 			string wait_St=command;
 			int brn_num = atoi(wait_St.c_str());
 			if(!PRINT_BPTREE(temp, brn_num)){
@@ -69,9 +69,9 @@ void Manager::run(const char* command)
 			}
 		}
 		else if(strcmp(command,"PRINT_CONFIDENCE")==0){ //command==printconfidence
-			command=strtok(NULL," ");
+			command=strtok(NULL,"	");
 			char* temp = command;
-			command=strtok(NULL," ");
+			command=strtok(NULL,"	");
 			const char* double_be = command;
 			double con_nm = atof(double_be);
 			if(!PRINT_CONFIDENCE(temp, con_nm)){
@@ -81,9 +81,9 @@ void Manager::run(const char* command)
 
 		}
 		else if(strcmp(command,"PRINT_RANGE")==0){ //command==print_range
-			command=strtok(NULL," ");
+			command=strtok(NULL,"	");
 			char* temp = command;
-			command = strtok(NULL," ");
+			command = strtok(NULL,"	");
 			string small=command;
 			int min_num = atoi(small.c_str());
 			command = strtok(NULL," ");
@@ -94,7 +94,11 @@ void Manager::run(const char* command)
 			}
 			
 		}
-	
+		else if(strcmp(command,"EXIT")==0){
+			//delete fpgrowth;
+			//delete bptree;
+			break;
+		}
 	}
 	fin.close();
 	return;
@@ -178,9 +182,9 @@ bool Manager::LOAD()
 
 	return true;
 }
-bool Manager::SAVE(){/*
+bool Manager::SAVE(){
 	fpgrowth->saveFrequentPatterns();
-	fpgrowth->printPatern(); */
+	fpgrowth->printPatern();
 	return 1;
 }
 
@@ -195,7 +199,7 @@ bool Manager::BTLOAD()
 
 	while(!result_fin.eof()){ //index table
       set<string> result_list;    //set new
-      result_fin.getline(rs,5500);
+      result_fin.getline(rs,9000);
       char* command1 = strtok(rs, "\t");
 	  char*command= strtok(NULL,"\t");
       //string wait_St=command;
@@ -214,9 +218,9 @@ bool Manager::BTLOAD()
 }
 
 bool Manager::PRINT_ITEMLIST() {
-	if(fpgrowth->getHeaderTable()==NULL){ return 0;}
+	if(fpgrowth->getHeaderTable()==NULL){ return 0;} //error code
 	
-	flog<<"========PRINT_ITEMLIST========"<<endl;
+	flog<<"========PRINT_ITEMLIST========"<<endl; //print itemlist
 	flog<<"Item"<<"\t"<<"Frequency"<<endl;
 	fpgrowth->printList(); 
 	flog<<"=============================="<<endl;
@@ -224,15 +228,15 @@ bool Manager::PRINT_ITEMLIST() {
 }
 
 bool Manager::PRINT_FPTREE() {
-	flog<<"=========PRINT_FPTREE========"<<endl;
+	flog<<"=========PRINT_FPTREE========"<<endl; //print fp-tree
 	flog<<"{StandardItem,Frequency}, (Path_Item,Frequency)"<<endl;
 	fpgrowth->printTree();
 	flog<<"============================="<<endl;
 	return 1;
 }
 
-bool Manager::PRINT_BPTREE(char* item, int min_frequency) {
-	string ttem(item);
+bool Manager::PRINT_BPTREE(char* item, int min_frequency) { //print bptree
+	string ttem(item); //char* to string
 	flog<<"========PRINT_BPTREE==========="<<endl;
 	flog<<"FrequentPattern"<<"\t \t"<<"Frequency"<<endl;
 	bptree->printFrequency(ttem, min_frequency);
@@ -240,13 +244,13 @@ bool Manager::PRINT_BPTREE(char* item, int min_frequency) {
 	return 1;
 }
 
-bool Manager::PRINT_CONFIDENCE(char* item, double rate) {
+bool Manager::PRINT_CONFIDENCE(char* item, double rate) { //print confidence
 	list<pair<int, string>> find_fre = fpgrowth->getHeaderTable()->getindexTable();
 	double save_hownum = 0;
 	for(list<pair<int, string>>::iterator i_ter= find_fre.begin(); i_ter != find_fre.end(); i_ter++ ){
-		if(i_ter->second == item){save_hownum=i_ter->first;}
+		if(i_ter->second == item){save_hownum=i_ter->first;} //find item in indextable
 	}
-	if(save_hownum==0 || bptree->getRoot()==NULL){ return 0;}
+	if(save_hownum==0 || bptree->getRoot()==NULL){ return 0;} //if no freq and dont exist bptree=>error
 	string r_tem(item);
 	flog<<"========PRINT_CONFIDENCE==========="<<endl;
 	flog<<"FrequentPattern"<<"  "<<"Frequency"<<"\t"<<"Confidence"<<endl;
@@ -256,8 +260,8 @@ bool Manager::PRINT_CONFIDENCE(char* item, double rate) {
 }
 	
 
-bool Manager::PRINT_RANGE(char* item, int start, int end) {
-	string pss_item(item);
+bool Manager::PRINT_RANGE(char* item, int start, int end) { //print range
+	string pss_item(item); //char* to string
 	flog<<"========PRINT_RANGE==========="<<endl;
 	flog<<"FrequentPattern"<<"  "<<"Frequency"<<endl;
 	bptree->printRange(pss_item, start, end);
@@ -267,7 +271,7 @@ bool Manager::PRINT_RANGE(char* item, int start, int end) {
 
 void Manager::printErrorCode(int n) {				//ERROR CODE PRINT
 	flog << "ERROR  " << n << endl;
-	flog << "=======================" << endl << endl;
+	flog << "=======================" << endl;
 	return;
 }
 
@@ -276,4 +280,3 @@ void Manager::printSuccessCode() {//SUCCESS CODE PRINT
 	flog << "=======================" << endl ;
 	return;
 }
-

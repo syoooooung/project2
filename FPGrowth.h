@@ -50,7 +50,10 @@ public:
 	void printPatern();
 	void saveFrequentPatterns();
 
+	//얘넨 내가 만든것들
 	void once_doit(list<pair<int, string>> save_freque, string currentitem);
+	map<set<string>, int> make_list(map<string, int> t_index, list<pair<int,set<string>>>pre_list);
+
 	};
 
 

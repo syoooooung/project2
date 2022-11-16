@@ -33,29 +33,29 @@ bool BpTree::Insert(int key, set<string> set2) { //insert func
 BpTreeNode* BpTree::searchDataNode(int n) {
     BpTreeNode* pCur = root;
     
-        while (pCur->getMostLeftChild() != NULL) { pCur = pCur->getMostLeftChild(); }
+    while (pCur->getMostLeftChild() != NULL) { pCur = pCur->getMostLeftChild(); }
 
-        map<int, FrequentPatternNode*>::iterator iter_search = pCur->getDataMap()->begin();
-        while (pCur!=NULL) { //if end of datanode=> put end 1 and break 
+    map<int, FrequentPatternNode*>::iterator iter_search = pCur->getDataMap()->begin();
+    while (pCur!=NULL) { //if end of datanode=> put end 1 and break 
+        iter_search = pCur->getDataMap()->begin();
+        if (n > iter_search->first) {   //get next
+            if (pCur->getNext() == NULL) { return pCur; }
+            pCur = pCur->getNext();
             iter_search = pCur->getDataMap()->begin();
-            if (n > iter_search->first) {   //get next
-                if (pCur->getNext() == NULL) { return pCur; }
-                pCur = pCur->getNext();
-                iter_search = pCur->getDataMap()->begin();
-                if (n < iter_search->first) { //get next but smaller than that
-                    pCur = pCur->getPrev();
-                    return pCur;
-                }
-                for (iter_search = pCur->getDataMap()->begin(); iter_search != pCur->getDataMap()->end(); iter_search++) { //next and find me
-                    if (n <= iter_search->first) { return pCur; }
-                }
-                if (pCur->getNext() == NULL) { return pCur; } //final but i am not exist
+            if (n < iter_search->first) { //get next but smaller than that
+                pCur = pCur->getPrev();
+                return pCur;
             }
-            else if (n <= iter_search->first) { return pCur; } //recur func and put frepatternode inset at pCUr 
+            for (iter_search = pCur->getDataMap()->begin(); iter_search != pCur->getDataMap()->end(); iter_search++) { //next and find me
+                if (n <= iter_search->first) { return pCur; }
+            }
+            if (pCur->getNext() == NULL) { return pCur; } //final but i am not exist
         }
+        else if (n <= iter_search->first) { return pCur; } //recur func and put frepatternode inset at pCUr 
+    }
     
-    return pCur;
 }
+
 //if error occur=> split indexdown x => that node find and put & point
 void BpTree::splitDataNode(BpTreeNode* pDataNode) {
     set<int> temp_array;
@@ -125,7 +125,8 @@ void BpTree::splitIndexNode(BpTreeNode* pIndexNode) { //split index node func
         it++;
     }
     map <int, BpTreeNode*>::iterator save_index_new = pIndexNode->getIndexMap()->find(whats_num); //that is move up index
-
+    int save_number = save_index_new->first;
+    BpTreeNode* save_new_index_node = save_index_new->second;
 
     BpTreeNode* split_newnode = new BpTreeIndexNode; // move up index split pIndexNode proecess
     it2 = pIndexNode->getIndexMap()->begin();
@@ -135,6 +136,7 @@ void BpTree::splitIndexNode(BpTreeNode* pIndexNode) { //split index node func
         pIndexNode->getIndexMap()->erase(*it); ///segmentfault cuation
         it++;
     }//move up node is tha new node of splitnodenode's leftchild
+    pIndexNode->getIndexMap()->erase(*it);
     it--;
     int already_left = 0; //have left child or not
     if (from_data) { //if this fund is call from datasplit
@@ -156,20 +158,24 @@ void BpTree::splitIndexNode(BpTreeNode* pIndexNode) { //split index node func
             curr = curr->getNext();
         }
     }
+    else{
+    split_newnode->setMostLeftChild(pIndexNode->getMostLeftChild());
+    }
     from_data = 0;
 
 
     if (pIndexNode->getParent() == NULL) { //if indexnode doesnt have parent node
         BpTreeNode* new_indnode = new BpTreeIndexNode;
-        new_indnode->insertIndexMap(save_index_new->first, save_index_new->second);
+        new_indnode->insertIndexMap( save_number, pIndexNode);
         new_indnode->setMostLeftChild(split_newnode); //new parent node
         split_newnode->setParent(new_indnode);
         pIndexNode->setParent(new_indnode);
         root = new_indnode;
     }
     else { //if indexnode have parent node
-        pIndexNode->getParent()->insertIndexMap(save_index_new->first, save_index_new->second);
-        pIndexNode->getParent()->setMostLeftChild(split_newnode);
+        pIndexNode->getParent()->insertIndexMap( save_number, pIndexNode);
+        if (*temp_array.begin() < pIndexNode->getParent()->getIndexMap()->begin()->first) { pIndexNode->getParent()->setMostLeftChild(split_newnode); }
+        //pIndexNode->getParent()->setMostLeftChild(split_newnode);
         split_newnode->setParent(pIndexNode->getParent()); //just move up and
         if (excessIndexNode(pIndexNode->getParent())) { //if excess indexnode
             splitIndexNode(pIndexNode->getParent()); //split indexnode
@@ -198,7 +204,7 @@ bool BpTree::printConfidence(string item, double item_frequency, double min_conf
     for (iter_print = currnode->getDataMap()->begin(); iter_print != currnode->getDataMap()->end(); iter_print++) {
 		double temp_chnum = iter_print->first;
 		double check_search_num = (item_frequency)*(min_confidence);
-        if (temp_chnum > check_search_num) { //print when larger than check_searchnum 
+        if (temp_chnum >= check_search_num) { //print when larger than check_searchnum 
             FrequentPatternNode* F_curr = iter_print->second;
             multimap<int, set<string> > tmp_amp = F_curr->getList();
             multimap<int, set<string> >::iterator F_iter =tmp_amp.begin();
@@ -269,7 +275,7 @@ bool BpTree::printFrequency(string item, int min_frequency)//print winratio in a
     return true;
 }
 bool BpTree::printRange(string item, int min, int max) {
-	 BpTreeNode* currnode = searchDataNode(min); //min_num search
+	BpTreeNode* currnode = searchDataNode(min); //min_num search
 
     map<int, FrequentPatternNode*>::iterator iter_print = currnode->getDataMap()->begin();
     for (iter_print = currnode->getDataMap()->begin(); iter_print != currnode->getDataMap()->end(); iter_print++) {
@@ -302,7 +308,6 @@ bool BpTree::printRange(string item, int min, int max) {
 			}
         }
     }
-
     return true;
 }
 void BpTree::printFrequentPatterns(set<string> pFrequentPattern, string item) {
