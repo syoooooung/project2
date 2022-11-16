@@ -54,7 +54,7 @@ public:
 	bool PRINT_CONFIDENCE(char* item, double rate);
 	bool PRINT_BPTREE(char* item, int min_frequency);
 	bool SAVE();
-
+	bool EXIT();
 
 	void printErrorCode(int n);
 	void printSuccessCode();

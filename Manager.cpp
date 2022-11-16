@@ -95,6 +95,10 @@ void Manager::run(const char* command)
 			
 		}
 		else if(strcmp(command,"EXIT")==0){
+			if(EXIT()){
+				flog<<"===========EXIT=========="<<endl;
+				printSuccessCode();
+			}
 			//delete fpgrowth;
 			//delete bptree;
 			break;
@@ -191,9 +195,9 @@ bool Manager::SAVE(){
 bool Manager::BTLOAD()
 {	ifstream result_fin;
 	char rs[10000]="";
-	result_fin.open("result1.txt");
+	result_fin.open("result.txt");
 	if(!result_fin){
-		cout<<"result1.txt not open!!"<<endl;
+		cout<<"result.txt not open!!"<<endl;
 		return 0;
 	}
 
@@ -269,7 +273,31 @@ bool Manager::PRINT_RANGE(char* item, int start, int end) { //print range
 	return 1;
 }
 
-void Manager::printErrorCode(int n) {				//ERROR CODE PRINT
+bool Manager::EXIT()
+{
+   map<string, FPNode*> datatable = fpgrowth->getHeaderTable()->getdataTable(); //get data table
+  
+   for(map<string,FPNode*>::iterator iter = datatable.begin();iter!=datatable.end();iter++) { //all data delete
+      FPNode* currNode = iter->second; //get node
+      while(1){
+         if(currNode == NULL){
+			break;
+		 }
+         FPNode* temp = currNode;
+         currNode = currNode->getNext();
+         delete temp;
+       }
+   }
+   FPNode* rootnode = fpgrowth->getTree(); //root
+   delete rootnode; //delete root
+
+   HeaderTable* gethead = fpgrowth->getHeaderTable(); 
+   delete gethead; //delete headertable
+
+   return 1;
+}
+
+void Manager::printErrorCode(int n) {	//ERROR CODE PRINT
 	flog << "ERROR  " << n << endl;
 	flog << "=======================" << endl;
 	return;
